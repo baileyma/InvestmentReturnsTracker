@@ -1,0 +1,6 @@
+@InvTracker_HostAddress = http://localhost:5085
+
+GET {{InvTracker_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

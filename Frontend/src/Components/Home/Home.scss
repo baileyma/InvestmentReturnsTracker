@@ -1,0 +1,141 @@
+@use '../../styles/variables' as *;
+
+// Shared base for all data columns (year, cumret, etc.)
+// Using %placeholder + @extend groups selectors in CSS output
+%col-base {
+  width: 130px;
+  flex-shrink: 0;
+  text-align: center;
+  border: 1.2px solid $color-border;
+  text-decoration: none;
+  color: $color-text;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: $color-bg;
+  border-radius: $radius-sm;
+  transition:
+    background $transition,
+    color $transition,
+    transform $transition,
+    box-shadow $transition;
+  padding: 0;
+}
+
+.Home {
+  &__table {
+    width: 880px;
+    margin: 0 auto;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: $color-border $color-bg;
+
+    &::-webkit-scrollbar       { height: 4px; }
+    &::-webkit-scrollbar-track { background: $color-bg; }
+    &::-webkit-scrollbar-thumb { background: $color-border; border-radius: 2px; }
+  }
+
+  &__account-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 0.7rem;
+    border: 1.2px solid $color-border;
+    background: $color-bg;
+    border-radius: $radius-sm;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    margin-bottom: 2px;
+    padding: 2px 0;
+  }
+
+  &__account-column {
+    width: 160px;
+    flex-shrink: 0;
+    font-weight: 600;
+    color: $color-text;
+    font-size: 0.97rem;
+    padding: 0;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: $color-bg;
+  }
+
+  &__year-column {
+    @extend %col-base;
+
+    // Fixed right — header "Since Jan 2021" and aggregate "Total" cells
+    &:last-child {
+      position: sticky;
+      right: 0;
+      z-index: 1;
+    }
+
+    // Only apply interactive styles when rendered as a <Link> (anchor)
+    &:is(a) {
+      &:hover {
+        background: $color-accent;
+        transform: scale(1.04);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      &:active {
+        background: $color-accent-dark;
+        transform: scale(0.97);
+      }
+    }
+
+    // Variant with flex centering (for starting balance cell)
+    &-centred {
+      @extend %col-base;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0;
+    }
+  }
+
+  &__cumret-column {
+    @extend %col-base;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: sticky;
+    right: 0;
+    z-index: 1;
+    margin: 0;
+  }
+
+  &__positive-data {
+    color: $color-pos;
+    font-weight: 600;
+  }
+  &__negative-data {
+    color: $color-neg;
+    font-weight: 600;
+  }
+
+  &__export-button {
+    @include btn-primary;
+    margin-left: 18px;
+    padding: 4px 18px;
+  }
+
+  &__delete-button {
+    cursor: pointer;
+    background: $color-neg;
+    color: $color-white;
+    border: none;
+    border-radius: $radius-sm;
+    padding: 0 12px;
+    font-weight: 700;
+    font-size: 0.97rem;
+    transition: background $transition;
+    margin-left: 4px;
+
+    &:hover {
+      background: $color-neg-dark;
+    }
+    &--hidden {
+      display: none;
+    }
+  }
+}

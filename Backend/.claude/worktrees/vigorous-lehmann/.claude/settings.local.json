@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /c/Users/mattb/source/repos/InvTracker/.claude/worktrees/vigorous-lehmann -name *Auth* -o -name *Security* -o -name *Login* -o -name *Identity*)",
+      "Bash(xargs grep:*)"
+    ]
+  }
+}

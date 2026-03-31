@@ -1,0 +1,45 @@
+// =============================================================================
+// Palette
+// =============================================================================
+
+$color-text:        #30364F;
+$color-border:      #ACBAC4;
+$color-accent:      #E1D9BC;
+$color-bg:          #F0F0DB;
+$color-pos:         #2e7d32;
+$color-neg:         #c62828;
+$color-white:       #fff;
+
+// Pre-computed hover/active states (avoids deprecated darken())
+$color-text-dark:   #1d2135;  // #30364F lightness -8%
+$color-neg-dark:    #9e1c1c;  // #c62828 lightness -10%
+$color-pos-dark:    #225c28;  // #2e7d32 lightness -10%
+$color-accent-dark: #cec4a0;  // #E1D9BC lightness -8%
+$color-border-dark: #8fa3af;  // #ACBAC4 lightness -10%
+
+// =============================================================================
+// Design tokens
+// =============================================================================
+
+$radius-sm:  5px;
+$radius-lg:  14px;
+$transition: 0.18s ease;
+
+// =============================================================================
+// Shared mixin — primary button
+// (mixin rather than %placeholder so it works across @use module boundaries)
+// =============================================================================
+
+@mixin btn-primary {
+  background: $color-text;
+  color: $color-bg;
+  border: none;
+  border-radius: $radius-sm;
+  padding: 7px 20px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background $transition;
+
+  &:hover { background: $color-text-dark; }
+}

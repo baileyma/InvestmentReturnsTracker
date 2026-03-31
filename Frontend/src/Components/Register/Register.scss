@@ -1,0 +1,31 @@
+.Register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+
+  &__title {
+    margin-bottom: 1rem;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 300px;
+
+    input {
+      padding: 0.5rem;
+    }
+
+    button {
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+  }
+
+  &__error {
+    color: red;
+  }
+}

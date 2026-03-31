@@ -1,0 +1,327 @@
+@use '../../styles/variables' as *;
+
+// =============================================================================
+// Keyframe animations (at top level so they're always in scope)
+// =============================================================================
+
+@keyframes fadeInBg {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes popupIn {
+  from { opacity: 0; transform: translateY(40px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+// =============================================================================
+// Local placeholders (only used within this file)
+// =============================================================================
+
+%modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeInBg 0.25s;
+}
+
+%modal-form {
+  background: $color-white;
+  border-radius: $radius-lg;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+  padding: 40px 44px 32px;
+  min-width: 350px;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  border: 1.5px solid $color-border;
+  animation: popupIn 0.28s cubic-bezier(0.4, 1.4, 0.6, 1) both;
+}
+
+// =============================================================================
+// Component styles
+// =============================================================================
+
+.Details {
+  &__page {
+    width: 880px;
+    margin: 0 auto;
+    background: $color-bg;
+    border: 1.5px solid $color-border;
+    border-radius: $radius-lg;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px 24px 32px;
+  }
+
+  &__page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  &__last-updated {
+    text-align: right;
+    color: $color-border;
+    font-size: 1.1rem;
+  }
+
+  &__title-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px 0 16px;
+    border-bottom: 1.5px solid $color-border;
+    margin-bottom: 24px;
+  }
+
+  &__title-subwrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  &__title-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &__button {
+    background: $color-accent;
+    color: $color-text;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    padding: 5px 14px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background $transition;
+
+    &:hover { background: $color-accent-dark; }
+  }
+
+  &__title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: $color-text;
+    margin: 4px 0 0;
+  }
+
+  &__Main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px 0 0;
+  }
+
+  &__First {
+    width: 25rem;
+    padding-right: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  &__Analysis {
+    display: flex;
+    flex-direction: column;
+    border-left: 1.5px solid $color-border;
+    width: 25rem;
+    padding-left: 2rem;
+    align-items: flex-start;
+    gap: 18px;
+
+    &-property { width: 60%; font-weight: 600; }
+    &-wrapper {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      background: $color-accent;
+      border-bottom: 1px solid $color-border;
+      padding: 8px 12px;
+
+      &:last-of-type { border-bottom: none; }
+    }
+    &-points    { text-align: center; }
+  }
+
+  &__balance-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-left: 1rem;
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: $color-text;
+      margin-bottom: 6px;
+    }
+  }
+
+  &__balance-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 18px;
+  }
+
+  &__balance-item { width: 85%; font-weight: 600; }
+
+  &__payments-list    { display: flex; flex-direction: column; gap: 10px; }
+  &__payments-wrapper { display: flex; flex-direction: column; justify-content: space-around; gap: 10px; }
+
+  &__payment-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    background: $color-accent;
+    border-bottom: 1px solid $color-border;
+    padding: 8px 12px;
+
+    &:last-child { border-bottom: none; }
+  }
+
+  &__deposited { color: $color-pos; width: 85%; font-weight: 600; }
+  &__withdrawn { color: $color-neg; width: 85%; font-weight: 600; }
+
+  &__addpayment-button {
+    background: $color-pos;
+    color: $color-white;
+    border: none;
+    border-radius: $radius-sm;
+    width: 120px;
+    height: 50px;
+    align-self: center;
+    margin-right: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background $transition, transform $transition;
+
+    &:hover {
+      background: $color-pos-dark;
+      transform: scale(1.08);
+    }
+  }
+
+  &__payment-button {
+    width: 70px;
+    padding: 6px 0;
+    cursor: pointer;
+    margin-right: 1rem;
+    border-radius: $radius-sm;
+    background: $color-accent;
+    color: $color-text;
+    border: 1px solid $color-border;
+    font-weight: 600;
+    transition: background $transition;
+
+    &:hover { background: $color-accent-dark; }
+  }
+
+  &__Editing {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 5rem;
+  }
+
+  // ============================================================
+  // Modal — shared by both Add Payment and Edit Balance popups
+  // ============================================================
+
+  &__popup {
+    @extend %modal-overlay;
+  }
+
+  &__popup-form {
+    @extend %modal-form;
+
+    label {
+      font-size: 1rem;
+      color: $color-text;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    input,
+    select {
+      padding: 10px 13px;
+      border-radius: $radius-sm;
+      border: 1.2px solid $color-border;
+      font-size: 1.05rem;
+      background: $color-bg;
+      color: $color-text;
+      transition: border $transition, box-shadow $transition;
+      margin-bottom: 2px;
+
+      &:focus {
+        border-color: $color-text;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(48, 54, 79, 0.12);
+      }
+    }
+
+    button[type='submit'] {
+      @include btn-primary;
+      padding: 12px 28px;
+      font-size: 1.13rem;
+      margin-top: 16px;
+      align-self: flex-end;
+    }
+  }
+
+  &__popup-form-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  &__popup-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    border-bottom: 1px solid $color-bg;
+    padding-bottom: 8px;
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: $color-text;
+      margin: 0;
+    }
+  }
+
+  &__popup-close {
+    cursor: pointer;
+    font-size: 1.7rem;
+    background: none;
+    border: none;
+    color: $color-border;
+    transition: color $transition, transform $transition;
+    margin-left: 12px;
+    padding: 2px 8px;
+    border-radius: 50%;
+
+    &:hover {
+      color: $color-neg;
+      background: rgba(198, 40, 40, 0.08);
+      transform: scale(1.12);
+    }
+  }
+}
