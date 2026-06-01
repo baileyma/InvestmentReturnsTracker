@@ -14,9 +14,7 @@ const Header = () => {
   return (
     <nav className="Header">
       Invesment Tracker Website
-      {isAuthenticated && (
-        <button onClick={handleLogout}>Logout</button>
-      )}
+      {isAuthenticated && <button onClick={handleLogout}>Logout</button>}
     </nav>
   );
 };

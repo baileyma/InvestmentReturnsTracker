@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - "Backend/**"
+      - 'Backend/**'
 
 jobs:
   build-and-test:
@@ -19,7 +19,7 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "10.0.x"
+          dotnet-version: '10.0.x'
 
       - name: Restore dependencies
         run: dotnet restore

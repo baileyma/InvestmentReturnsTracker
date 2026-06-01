@@ -1,0 +1,97 @@
+{
+  "project": "InvestmentReturnsTracker CI/CD & Infrastructure",
+  "lastUpdated": "2026-04-18",
+  "steps": [
+    {
+      "id": 1,
+      "title": "Sign up for Azure free account",
+      "description": "Create Azure account at azure.microsoft.com/free. Note down your Subscription ID from the Azure Portal under Subscriptions.",
+      "status": "done",
+      "notes": ""
+    },
+    {
+      "id": 2,
+      "title": "Install tools locally",
+      "description": "Install Azure CLI and Terraform on your machine. Verify with az --version and terraform --version.",
+      "status": "done",
+      "notes": ""
+    },
+    {
+      "id": 3,
+      "title": "Create a Service Principal",
+      "description": "Run az ad sp create-for-rbac to create a robot deployer account. Save the appId, password, and tenant values — you only see the secret once.",
+      "status": "done",
+      "notes": ""
+    },
+    {
+      "id": 4,
+      "title": "Create Terraform state storage",
+      "description": "Manually create an Azure resource group, storage account, and container to hold Terraform state. Three az CLI commands — see implementation-steps.md.",
+      "status": "done",
+      "notes": ""
+    },
+    {
+      "id": 5,
+      "title": "Write the Terraform files",
+      "description": "Create the infra/ folder and write main.tf, variables.tf, resource_group.tf, app_service.tf, mysql.tf, static_web_app.tf, outputs.tf.",
+      "status": "done",
+      "notes": ""
+    },
+    {
+      "id": 6,
+      "title": "Run Terraform",
+      "description": "Run terraform init, terraform plan, then terraform apply to provision all Azure resources. Write down all output values.",
+      "status": "todo",
+      "notes": ""
+    },
+    {
+      "id": 7,
+      "title": "Add GitHub Actions Secrets",
+      "description": "Add all secrets to GitHub repo Settings → Secrets and variables → Actions. Values come from Step 3 (credentials), Step 1 (subscription ID), and Step 6 (Terraform outputs).",
+      "status": "todo",
+      "notes": ""
+    },
+    {
+      "id": 8,
+      "title": "Update backend code",
+      "description": "Add context.Database.Migrate() to Program.cs for automatic migrations on startup. Create appsettings.Production.json as a template file.",
+      "status": "todo",
+      "notes": ""
+    },
+    {
+      "id": 9,
+      "title": "Write backend deploy pipeline",
+      "description": "Create .github/workflows/cd-backend.yml — runs dotnet test, dotnet publish, then zip deploys to Azure App Service on push to main.",
+      "status": "todo",
+      "notes": ""
+    },
+    {
+      "id": 10,
+      "title": "Write frontend deploy pipeline",
+      "description": "Create .github/workflows/cd-frontend.yml — runs npm build then deploys dist/ to Azure Static Web Apps on push to main.",
+      "status": "todo",
+      "notes": ""
+    },
+    {
+      "id": 11,
+      "title": "Check existing CI workflows",
+      "description": "Review backend-ci.yml and frontend-ci.yml. These run on PRs and act as quality gates. No changes needed unless you want to tighten them.",
+      "status": "todo",
+      "notes": ""
+    },
+    {
+      "id": 12,
+      "title": "First deploy",
+      "description": "Commit and push everything to main. Watch the Actions tab in GitHub — both cd-backend and cd-frontend pipelines should run and go green.",
+      "status": "todo",
+      "notes": ""
+    },
+    {
+      "id": 13,
+      "title": "Verify end to end",
+      "description": "Check the backend Swagger UI loads at the App Service URL. Open the frontend Static Web App URL. Try registering and logging in to confirm the database migrations ran.",
+      "status": "todo",
+      "notes": ""
+    }
+  ]
+}

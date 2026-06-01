@@ -44,11 +44,11 @@ builder.Services.AddLogging();
 
 
 builder.Services.AddDbContext<InvTrackerContext>(dbContextOptions
-    => dbContextOptions.UseMySql(builder.Configuration.GetConnectionString("InvestmentTrackerDB"), new MySqlServerVersion(new Version(8, 0, 40))));
+    => dbContextOptions.UseSqlServer(builder.Configuration.GetConnectionString("InvestmentTrackerDB")));
 
-builder.Services.AddIdentity<ClientUser, IdentityRole>()
-    .AddEntityFrameworkStores<InvTrackerContext>()
-    .AddDefaultTokenProviders();
+    builder.Services.AddIdentity<ClientUser, IdentityRole>()
+        .AddEntityFrameworkStores<InvTrackerContext>()
+        .AddDefaultTokenProviders();
 
 builder.Logging.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.Warning);
 
@@ -107,22 +107,40 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowFrontend", policy =>
+//    {
+//        policy.WithOrigins(
+//            "http://localhost:5173",
+//            "https://<your-static-web-app-url>.azurestaticapps.net"
+//        );
+//    });
+//});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
 
-app.UseCors("AllowFrontEnd");
 
 app.UseHttpsRedirection();
+app.UseCors("AllowFrontEnd");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<InvTrackerContext>();
+    db.Database.Migrate();
+}
 
 app.Run();

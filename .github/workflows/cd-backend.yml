@@ -1,0 +1,37 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches: [main]
+    paths: [Backend/**]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore Backend/InvTracker/InvTracker.csproj
+
+      - name: Run tests
+        run: dotnet test Backend/InvTracker.UnitTests/InvTracker.UnitTests.csproj
+
+      - name: Publish
+        run: dotnet publish Backend/InvTracker/InvTracker.csproj -c Release -o ./publish
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: '{"clientId":"${{secrets.AZURE_CLIENT_ID}}","clientSecret":"${{secrets.AZURE_CLIENT_SECRET}}","tenantId":"${{secrets.AZURE_TENANT_ID}}","subscriptionId":"${{secrets.AZURE_SUBSCRIPTION_ID}}"}'
+
+      - name: Deploy to App Service
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{secrets.AZURE_WEBAPP_NAME}}
+          package: ./publish
